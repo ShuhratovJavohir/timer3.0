@@ -12,27 +12,20 @@ function updateTime() {
   dataTime--;
   let mins = parseInt(dataTime / 60);
   let secs = dataTime % 60;
-  
   if(mins < 10) {
     mins = '0' + String(mins);
   }
   if(secs < 10) {
     secs = '0' + String(secs);
-}
-localStorage.setItem('currentTime', dataTime);
+  }
+  if(dataTime <= 0){
+    console.log('minus');
+    dataTime = 3600
+  }
+
 document.querySelector('#timespan').innerHTML = `${mins}:${secs}`;
-    if(dataTime == 0){
-      dataTime = 3600;
-    }
+  localStorage.setItem('currentTime', dataTime);
 }
-
-// start.addEventListener('click', function(){
-//   timerInterval = setInterval(updateTime, 10);
-// })
-// stop.addEventListener('click', function(){
-//   clearInterval(timerInterval);
-// })
-
 
 function startTimer() {
   timerInterval = setInterval(updateTime, 10);
@@ -41,6 +34,7 @@ function startTimer() {
 function stopTimer() {
   clearInterval(timerInterval);
 }
+
 
 window.addEventListener('load', () => {  
   dataTime = parseInt(localStorage.getItem('currentTime'));
